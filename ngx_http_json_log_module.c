@@ -85,6 +85,7 @@ static ngx_str_t combined_fields[] = {
     ngx_string("status"),
     ngx_string("body_bytes_sent"),
     ngx_string("http_referer"),
+    ngx_string("ngo_nginx"),
     ngx_string("http_user_agent"),
 };
 
