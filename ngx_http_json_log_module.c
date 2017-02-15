@@ -149,14 +149,6 @@ ngx_module_t ngx_http_json_log_module = {
 /******************************************************************************
  * Function Implementations
  *****************************************************************************/
-
-bool isNumber(char *input) {
-    for (i = 0; input[i] != '\0'; i++)
-        if (isalpha(input[i]))
-            return false;
-    return true;
-}
-
 //
 // Main Handler Function
 //
@@ -192,7 +184,15 @@ ngx_http_json_log_handler(ngx_http_request_t *r)
             } else {
                 field_val = ngx_pnalloc(r->pool, value->len + 1);
                 ngx_cpystrn(field_val, value->data, value->len + 1);
-                if(isNumber(value)){
+
+                int isnumber = 1
+                for(size_t i = 0; value[i] != '\0'; ++i) {
+                    if(! (isdigit(value[i]) || '.' == value[i]) ) {
+                        isnumber=0
+                        return 0;
+                    }
+                }
+                if(isnumber == 1){
                     json_object_set_new(obj, (char *)field[s].name.data,
                             json_integer((char *)field_val));
                 }else{
