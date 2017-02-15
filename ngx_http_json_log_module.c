@@ -198,7 +198,7 @@ ngx_http_json_log_handler(ngx_http_request_t *r)
                   isDigit = isdigit(value[j]);
                   j++;
                 }
-                if(isdigit(value)){
+                if(isDigit == 1){
                     json_object_set_new(obj, (char *)field[s].name.data,
                             json_integer((char *)field_val));
                 }else{
