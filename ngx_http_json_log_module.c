@@ -192,6 +192,12 @@ ngx_http_json_log_handler(ngx_http_request_t *r)
             } else {
                 field_val = ngx_pnalloc(r->pool, value->len + 1);
                 ngx_cpystrn(field_val, value->data, value->len + 1);
+                int isDigit = 0;
+                int j=0;
+                while(j<strlen(value) && isDigit == 0){
+                  isDigit = isdigit(value[j]);
+                  j++;
+                }
                 if(isdigit(value)){
                     json_object_set_new(obj, (char *)field[s].name.data,
                             json_integer((char *)field_val));
